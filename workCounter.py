@@ -1,4 +1,4 @@
-import time, os
+import time, datetime, os
 
 class workCounter(object):
 
@@ -15,6 +15,8 @@ class workCounter(object):
 	fileArrival = "arrival"
 	f = False
 	timeSpent = 0
+	timeSpentStart = 0
+	dateStart = False;
 
 	debug = False
 
@@ -23,6 +25,7 @@ class workCounter(object):
 	##
 	def __init__(self, debug = 0):
 		self.date = time.strftime("%Y_%m_%d")
+		self.dateStart = datetime.datetime.now()
 		# Enabling debugging
 		self.debug = True if debug == 1 else False
 		return
@@ -68,6 +71,7 @@ class workCounter(object):
 			self.f = open(self.fileDest, "r")
 			try:
 				self.timeSpent = int(self.f.readline().rstrip())
+				self.timeSpentStart  = self.timeSpent
 			except Exception:
 				self.timeSpent = 0
 		else:
@@ -87,16 +91,28 @@ class workCounter(object):
 		if(self.debug):
 			i = 1
 
-		while(1 if self.debug == True else i < 10):
+		while(1 if self.debug == False else i < 10):
 			time.sleep(1 if self.debug else 60) # if debug sleep = 1, otherwise sleep correctly 60 secs
-			self.timeSpent += 1 # add 1 minute
 
 			if (self.debug):
 				print(self.timeSpent)
 
+			# recalculate time after hours
+			if(self.timeSpent % 60 == 0):
+				if(self.dateStart):
+					diff = datetime.datetime.now() - self.dateStart
+					diffSeconds = int(diff.total_seconds())
+					diffMinutes = diffSeconds / 60
+
+					if(self.debug):
+						self.timeSpent = self.timeSpentStart + diffSeconds
+					else:
+						self.timeSpent = self.timeSpentStart + diffMinutes
+
 			# opens file, rewrites it with current minutes
 			# and closes file,
 			# waits another 60 seconds
+			self.timeSpent += 1 # add 1 minute
 			self.f = open(self.fileDest, "w")
 			self.f.truncate()
 			self.f.write(str(self.timeSpent))
@@ -105,5 +121,5 @@ class workCounter(object):
 			if(self.debug):
 				i += 1
 
-v = workCounter()
+v = workCounter(1)
 v.run()
