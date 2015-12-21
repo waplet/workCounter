@@ -7,7 +7,7 @@ class workCounter(object):
 	# Local variable
 	#
 	##
-	date = -1;
+	date = False;
 	filePath = "./data/"
 	fileExtension = ".txt"
 	fileDest = False
@@ -18,20 +18,29 @@ class workCounter(object):
 
 	debug = False
 
+	##
+	#	Constructor
+	##
 	def __init__(self, debug = 0):
 		self.date = time.strftime("%Y_%m_%d")
 		# Enabling debugging
 		self.debug = True if debug == 1 else False
 		return
 
+	##
+	# Responsible for running whole app
+	##
 	def run(self):
-		if (self.date == -1):
+		if (self.date == False):
 			return
 
 		self.createFile()
-		self.work()
+		self.work() # this  puts everything on hold. because of infinite loop
 		return
 
+	##
+	# Creates both files, current date file and populates arrival txt.
+	##
 	def createFile(self):
 		# Assuming date is correct
 		self.fileDest = self.filePath + self.date + self.fileExtension;
@@ -69,8 +78,11 @@ class workCounter(object):
 
 		return
 
+	##
+	# Does all the hard work
+	##
 	def work(self):
-		# Debug
+		# Debug additional features
 		i = False
 		if(self.debug):
 			i = 1
@@ -78,8 +90,13 @@ class workCounter(object):
 		while(1 if self.debug == True else i < 10):
 			time.sleep(1 if self.debug else 60) # if debug sleep = 1, otherwise sleep correctly 60 secs
 			self.timeSpent += 1 # add 1 minute
+
 			if (self.debug):
 				print(self.timeSpent)
+
+			# opens file, rewrites it with current minutes
+			# and closes file,
+			# waits another 60 seconds
 			self.f = open(self.fileDest, "w")
 			self.f.truncate()
 			self.f.write(str(self.timeSpent))
