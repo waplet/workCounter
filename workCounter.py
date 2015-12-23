@@ -8,7 +8,7 @@ class workCounter(object):
 	#
 	##
 	date = False;
-	filePath = "./data/"
+	filePath = os.path.dirname(__file__) + "/data/"
 	fileExtension = ".txt"
 	fileDest = False
 
@@ -28,6 +28,8 @@ class workCounter(object):
 		self.dateStart = datetime.datetime.now()
 		# Enabling debugging
 		self.debug = True if debug == 1 else False
+
+		print("[W] Work counter has been initiated")
 		return
 
 	##
@@ -37,6 +39,7 @@ class workCounter(object):
 		if (self.date == False):
 			return
 
+		print("[W] Work counter has been run")
 		self.createFile()
 		self.work() # this  puts everything on hold. because of infinite loop
 		return
@@ -58,11 +61,13 @@ class workCounter(object):
 				self.f = open(fileArrivalDest, "a+")
 				self.f.write(self.date + " " + time.strftime("%H:%M") + "\n")
 				self.f.close()
+			print("[W] You have already arrived today")
 		else:
 			# create file if there is no
 			self.f = open(fileArrivalDest, "w")
 			self.f.write(self.date + " " + time.strftime("%H:%M") + "\n")
 			self.f.close()
+			print("[W] Arrival at %s " % time.strftime("%Y-%m-%d %H:%M"))
 
 		self.f = False
 
@@ -80,6 +85,8 @@ class workCounter(object):
 
 		self.f = False
 
+
+		print("[W] Files has been created")
 		return
 
 	##
@@ -118,5 +125,6 @@ class workCounter(object):
 			self.f.write(str(self.timeSpent))
 			self.f.close()
 
+			print("[W] %d minutes have been spent today totally" % self.timeSpent)
 			if(self.debug):
 				i += 1
