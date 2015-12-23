@@ -2,5 +2,4 @@
 from workCounter import workCounter
 
 wc = workCounter()
-
-print(wc.time)
+wc.run()

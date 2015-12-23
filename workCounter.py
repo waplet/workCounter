@@ -120,6 +120,3 @@ class workCounter(object):
 
 			if(self.debug):
 				i += 1
-
-v = workCounter(1)
-v.run()
