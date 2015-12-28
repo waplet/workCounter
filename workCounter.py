@@ -61,7 +61,6 @@ class workCounter(object):
 				self.f = open(fileArrivalDest, "a+")
 				self.f.write(self.date + " " + time.strftime("%H:%M") + "\n")
 				self.f.close()
-			print("[W] You have already arrived today")
 		else:
 			# create file if there is no
 			self.f = open(fileArrivalDest, "w")
@@ -79,6 +78,7 @@ class workCounter(object):
 				self.timeSpentStart  = self.timeSpent
 			except Exception:
 				self.timeSpent = 0
+			print("[W] You have already arrived today")
 		else:
 			self.f = open(self.fileDest, "w")
 		self.f.close()
