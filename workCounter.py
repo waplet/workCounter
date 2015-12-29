@@ -125,7 +125,7 @@ class workCounter(object):
 			self.f.write(str(self.timeSpent))
 			self.f.close()
 
-			print("[W] %d hours %d  minutes have been spent today totally" % ( int(self.timeSpent / 60), self.timeSpent % 60) )
+			print("[W] %d hours %d minutes have been spent today totally" % ( int(self.timeSpent / 60), self.timeSpent % 60) )
 
 			if(self.debug):
 				i += 1
