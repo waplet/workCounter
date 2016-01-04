@@ -66,7 +66,6 @@ class workCounter(object):
 			self.f = open(fileArrivalDest, "w")
 			self.f.write(self.date + " " + time.strftime("%H:%M") + "\n")
 			self.f.close()
-			print("[W] Arrival at %s " % time.strftime("%Y-%m-%d %H:%M"))
 
 		self.f = False
 
@@ -81,6 +80,7 @@ class workCounter(object):
 			print("[W] You have already arrived today")
 		else:
 			self.f = open(self.fileDest, "w")
+			print("[W] Arrival at %s " % time.strftime("%Y-%m-%d %H:%M"))
 		self.f.close()
 
 		self.f = False
@@ -125,7 +125,7 @@ class workCounter(object):
 			self.f.write(str(self.timeSpent))
 			self.f.close()
 
-			print("[W] %d hours %d minutes have been spent today totally" % ( int(self.timeSpent / 60), self.timeSpent % 60) )
+			print("[W] [%s] %d hours %d minutes have been spent today totally" % (time.strftime("%Y-%m-%d %H:%M"), int(self.timeSpent / 60), self.timeSpent % 60) )
 
 			if(self.debug):
 				i += 1
