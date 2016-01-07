@@ -53,7 +53,9 @@ class workCounter(object):
 
 		# Creating arrival document
 		# Must be created first, to check if arrival already exists in system
-		fileArrivalDest = self.filePath + self.fileArrival + self.fileExtension;
+		currentDate = datetime.datetime.now()
+		fileArrivalDest = self.filePath + self.fileArrival + "_" + str(currentDate.year) + "_" + str(currentDate.month) + self.fileExtension
+
 		if(os.path.exists(fileArrivalDest)):
 			# everything is ok, that's the way it should be..
 			if not (os.path.exists(self.fileDest)):
@@ -129,3 +131,10 @@ class workCounter(object):
 
 			if(self.debug):
 				i += 1
+
+	# # not used by now
+	# def monthdelta(self, date, delta):
+	# 	m, y = (date.month+delta) % 12, date.year + ((date.month)+delta-1) // 12
+	# 	if not m: m = 12
+	# 	d = min(date.day, [31,29 if y%4==0 and not y%400==0 else 28,31,30,31,30,31,31,30,31,30,31][m-1])
+	#     	return date.replace(day=d,month=m, year=y)
