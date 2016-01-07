@@ -54,7 +54,7 @@ class workCounter(object):
 		# Creating arrival document
 		# Must be created first, to check if arrival already exists in system
 		currentDate = datetime.datetime.now()
-		fileArrivalDest = self.filePath + self.fileArrival + "_" + str(currentDate.year) + "_" + str(currentDate.month) + self.fileExtension
+		fileArrivalDest = self.filePath + self.fileArrival + "_" + str(currentDate.year) + "_" + currentDate.strftime("%m") + self.fileExtension
 
 		if(os.path.exists(fileArrivalDest)):
 			# everything is ok, that's the way it should be..
