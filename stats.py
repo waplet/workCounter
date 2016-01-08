@@ -26,7 +26,7 @@ class stats(object):
 			if(x == 1):
 				self.printArrivals()
 			elif(x == 2):
-				self.printCurrentMonthWorktime()
+				self.printMonthWorktime()
 			elif(x == 9):
 				self.printMenu()
 			else:
@@ -37,11 +37,6 @@ class stats(object):
 	def printArrivals(self):
 		print("[W] Arrivals printed")
 		return
-
-	def printCurrentMonthWorktime(self):
-		currentMonthString = datetime.datetime.strftime("%Y_%m");
-
-
 
 	def printMonthWorktime(self, yearMonthString = False):
 
@@ -85,11 +80,11 @@ class stats(object):
 			hourMinutes = self.minutesToString(minutes)
 			day = str(key).replace(str(yearMonthString) + "_", "")
 			if(minutes == 0):
-				print("%s : [ 0 ] Not arrived" % day)
+				print("%s: [ 0 ] Not arrived" % day)
 			else:
-				print ("%s : [ %d ] %s" % (day,minutes / 60, hourMinutes))
+				print ("%s: [ %d ] %s" % (day,minutes / 60, hourMinutes))
 
-		print("[W] [%d] Total worktime this month: %s" % (totalWorktime / 60, self.minutesToString(totalWorktime)))
+		print("[W] [ %d ] Total worktime this month: %s" % (totalWorktime / 60, self.minutesToString(totalWorktime)))
 
 	def minutesToString(self, minutes = 0):
 		return str(int(minutes / 60)) + " hours " + str(int(minutes % 60)) + " minutes"
