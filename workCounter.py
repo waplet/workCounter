@@ -49,11 +49,12 @@ class workCounter(object):
 	##
 	def createFile(self):
 		# Assuming date is correct
-		self.fileDest = self.filePath + self.date + self.fileExtension;
+		currentDate = datetime.datetime.now()
+
+		self.fileDest = self.filePath + currentDate.strftime("%Y_%m") + "/" + self.date + self.fileExtension;
 
 		# Creating arrival document
 		# Must be created first, to check if arrival already exists in system
-		currentDate = datetime.datetime.now()
 		fileArrivalDest = self.filePath + self.fileArrival + "_" + str(currentDate.year) + "_" + currentDate.strftime("%m") + self.fileExtension
 
 		if(os.path.exists(fileArrivalDest)):
@@ -81,6 +82,7 @@ class workCounter(object):
 				self.timeSpent = 0
 			print("[W] You have already arrived today")
 		else:
+			os.makedirs(os.path.dirname(self.fileDest))
 			self.f = open(self.fileDest, "w")
 			print("[W] Arrival at %s " % time.strftime("%Y-%m-%d %H:%M"))
 		self.f.close()
