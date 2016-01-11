@@ -82,7 +82,8 @@ class workCounter(object):
 				self.timeSpent = 0
 			print("[W] You have already arrived today")
 		else:
-			os.makedirs(os.path.dirname(self.fileDest))
+			if(not os.path.exists(os.path.dirname(self.fileDest))):
+				os.makedirs(os.path.dirname(self.fileDest))
 			self.f = open(self.fileDest, "w")
 			print("[W] Arrival at %s " % time.strftime("%Y-%m-%d %H:%M"))
 		self.f.close()
