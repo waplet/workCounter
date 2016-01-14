@@ -48,6 +48,11 @@ class workCounter(object):
 	# Creates both files, current date file and populates arrival txt.
 	##
 	def createFile(self):
+		# check if data dir exists
+		if(not os.path.exists(self.filePath)):
+			os.makedirs(self.filePath)
+			print("[W] Data dir created")
+
 		# Assuming date is correct
 		currentDate = datetime.datetime.now()
 

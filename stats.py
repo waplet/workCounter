@@ -21,7 +21,11 @@ class stats(object):
 
 	def loop(self):
 		self.printMenu()
-		x = int(input("Input number: "))
+		try:
+			x = int(input("Input number: "))
+		except ValueError:
+			x = 9
+
 		while(x != 0):
 			if(x == 1):
 				self.printArrivals()
@@ -32,7 +36,10 @@ class stats(object):
 			else:
 				print("[W] Did nothing")
 
-			x = int(input("Input number: "))
+			try:
+				x = int(input("Input number: "))
+			except ValueError:
+				x = 9
 
 	def printArrivals(self):
 		print("[W] Arrivals printed")
