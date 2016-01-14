@@ -3,6 +3,7 @@ import time, datetime, os
 class stats(object):
 
 	filePath = os.path.dirname(__file__) + "/data/"
+	extension = ".txt"
 
 	def __init__(self):
 		print("[W] Stats module initialized")
@@ -12,8 +13,8 @@ class stats(object):
 		print("")
 		print("[W] Choose from any option below")
 		print("")
-		print("[W] 1 - Show arrivals")
-		print("[W] 2 - Current month work time")
+		print("[W] 1 - Show arrivals [Current]")
+		print("[W] 2 - Worktime [Current]")
 		print("[W] 9 - Print menu")
 		print("[W] 0 - Quit")
 		print("")
@@ -41,7 +42,20 @@ class stats(object):
 			except ValueError:
 				x = 9
 
-	def printArrivals(self):
+	def printArrivals(self, yearMonthString = False):
+		if(yearMonthString == False):
+			yearMonthString = datetime.datetime.now().strftime("%Y_%m")
+
+		destination = self.filePath + "arrivals/arrival_" + yearMonthString + self.extension
+
+		if(not os.path.exists(destination)):
+			print("[W] No data present for month %s" % str(yearMonthString))
+			return
+
+		f = open(destination)
+		for line in f:
+			print ("%s" % str(line).rstrip())
+
 		print("[W] Arrivals printed")
 		return
 

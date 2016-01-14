@@ -60,7 +60,7 @@ class workCounter(object):
 
 		# Creating arrival document
 		# Must be created first, to check if arrival already exists in system
-		fileArrivalDest = self.filePath + self.fileArrival + "_" + str(currentDate.year) + "_" + currentDate.strftime("%m") + self.fileExtension
+		fileArrivalDest = self.filePath + "arrivals/" + self.fileArrival + "_" + str(currentDate.year) + "_" + currentDate.strftime("%m") + self.fileExtension
 
 		if(os.path.exists(fileArrivalDest)):
 			# everything is ok, that's the way it should be..
@@ -70,6 +70,8 @@ class workCounter(object):
 				self.f.write(self.date + " " + time.strftime("%H:%M") + "\n")
 				self.f.close()
 		else:
+			if(not os.path.exists(os.path.dirname(fileArrivalDest))):
+				os.makedirs(os.path.dirname(fileArrivalDest))
 			# create file if there is no
 			self.f = open(fileArrivalDest, "w")
 			self.f.write(self.date + " " + time.strftime("%H:%M") + "\n")
@@ -109,7 +111,6 @@ class workCounter(object):
 			i = 1
 
 		while(1 if self.debug == False else i < 10):
-			time.sleep(1 if self.debug else 60) # if debug sleep = 1, otherwise sleep correctly 60 secs
 
 			if (self.debug):
 				print(self.timeSpent)
@@ -129,16 +130,20 @@ class workCounter(object):
 			# opens file, rewrites it with current minutes
 			# and closes file,
 			# waits another 60 seconds
-			self.timeSpent += 1 # add 1 minute
 			self.f = open(self.fileDest, "w")
 			self.f.truncate()
-			self.f.write(str(self.timeSpent))
+			self.f.write(str(int(self.timeSpent)))
 			self.f.close()
 
-			print("[W] [%s] %d hours %d minutes have been spent today totally" % (time.strftime("%Y-%m-%d %H:%M"), int(self.timeSpent / 60), self.timeSpent % 60) )
+			if(self.timeSpent != 0):
+				print("[W] [%s] %d hours %d minutes have been spent today totally" % (time.strftime("%Y-%m-%d %H:%M"), int(self.timeSpent / 60), self.timeSpent % 60) )
+
+			self.timeSpent += 1 # add 1 minute
 
 			if(self.debug):
 				i += 1
+
+			time.sleep(1 if self.debug else 60) # if debug sleep = 1, otherwise sleep correctly 60 secs
 
 	# # not used by now
 	# def monthdelta(self, date, delta):
