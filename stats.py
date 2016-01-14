@@ -50,7 +50,7 @@ class stats(object):
 
 		worktimeDays = {}
 
-		day = 01
+		day = 1
 		for i in range(1, int(self.lastDayOfMonth().day) + 1):
 			day = "{0:02d}".format(i)
 			worktimeDays[yearMonthString + "_" + day] = 0
