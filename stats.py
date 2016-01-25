@@ -125,8 +125,13 @@ class stats(object):
 
     def printArrivalsChosen(self):
         # date = str(raw_input("Input date (YYYY_MM): "))
-        date = self.ipt("Input date (YYYY_MM):")
+        date = str(self.ipt("Input date (YYYY_MM):")).strip()
         self.printArrivals(date)
+        return
+
+    def printMonthWorktimeChosen(self):
+        date = str(self.ipt("Input date (YYYY_MM):")).strip()
+        self.printMonthWorktime(date)
         return
 
     def ipt(self, pretext = ""):
