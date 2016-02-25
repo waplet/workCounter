@@ -119,7 +119,7 @@ class stats(object):
             if(minutes == 0):
                 print("%s: [ 0 ] Not arrived" % day)
             else:
-                print ("%s: [ %d ] %s" % (day,minutes / 60, hourMinutes))
+                print ("%s: [ %d ] %s" % (day, round(minutes / 60.0), hourMinutes))
 
         print("[W] [ %d ] Total worktime this month: %s" % (totalWorktime / 60, self.minutesToString(totalWorktime)))
 
