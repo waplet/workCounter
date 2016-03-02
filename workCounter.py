@@ -56,7 +56,7 @@ class workCounter(object):
 		# Assuming date is correct
 		currentDate = datetime.datetime.now()
 
-		self.fileDest = self.filePath + currentDate.strftime("%Y_%m") + "/" + self.date + self.fileExtension;
+		self.fileDest = self.getDestinationFileName(currentDate)
 
 		# Creating arrival document
 		# Must be created first, to check if arrival already exists in system
@@ -110,6 +110,12 @@ class workCounter(object):
 		if(self.debug):
 			i = 1
 
+		# working over midnight
+		if(self.date != time.strftime("%Y_%m_%d")):
+			self.createFile()
+			self.date = time.strftime("%Y_%m_%d")
+			self.dateStart = datetime.datetime.now()
+
 		while(1 if self.debug == False else i < 10):
 
 			if (self.debug):
@@ -144,6 +150,9 @@ class workCounter(object):
 				i += 1
 
 			time.sleep(1 if self.debug else 60) # if debug sleep = 1, otherwise sleep correctly 60 secs
+
+	def getDestinationFileName(self, currentDate):
+		return self.filePath + currentDate.strftime("%Y_%m") + "/" + self.date + self.fileExtension
 
 	# # not used by now
 	# def monthdelta(self, date, delta):
